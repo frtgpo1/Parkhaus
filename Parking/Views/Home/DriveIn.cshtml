@@ -1,0 +1,20 @@
+﻿@model Parking.Models.DriveInModel
+
+<h2>View</h2>   
+
+
+
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-lg-3 example-col">
+        <p>Default Button</p>
+        <p class="k-block">
+            <a href=@Url.Action("ClickOnShortParking", "Home")>
+                Kurzparker.
+            </a>
+        </p>
+    </div>
+    <div>
+        @Html.LabelFor(model => model.Capacity);
+    </div>
+</div>
+

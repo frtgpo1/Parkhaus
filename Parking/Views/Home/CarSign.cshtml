@@ -1,0 +1,11 @@
+﻿@model Parking.Models.CarSignModel
+
+<tr>
+    <td class="adminTitle">Kennzeichen:</td>
+    <td class="adminData">
+        @Html.EditorFor(model => model.CarSign)
+    </td>
+    <td>
+        <a href=@Url.Action("ClickOnShortParking", "Home", Model)>Bestätigen</a>
+    </td>
+</tr>
