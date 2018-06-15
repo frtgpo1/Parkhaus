@@ -1,0 +1,25 @@
+﻿@model Parking.Models.EntryModel
+
+<div class="wrapper">
+  <div class="page-header section-dark entry-wallpaper">
+    <div class="filter"></div>
+    <div class="content-center">
+      <div class="container">
+        <div class="title-brand">
+          <h1 class="presentation-title">Einfahren</h1>
+        </div>
+        <div class="alert alert-info">
+          <div class="container">
+            <span>78 Parkplätze frei</span>
+          </div>
+        </div>
+        <h2 class="presentation-subtitle text-center">Bitte geben Sie Ihr Kennzeichen ein.</h2>
+      </div>
+    </div>
+    @using ( @Html.BeginForm( "EntrySubmit", "Home", FormMethod.Post, new { @class = "entry-form" } ) )
+    {
+      @Html.TextBoxFor(m => m.Kennzeichen, new { @class = "btn btn-success btn-round" } )
+      <input type="submit" class="btn btn-danger entry-submit" value="Abschicken" />
+    }
+  </div>
+</div>

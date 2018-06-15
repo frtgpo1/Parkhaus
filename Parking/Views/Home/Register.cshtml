@@ -1,0 +1,24 @@
+﻿@model Parking.Models.EntryModel
+
+<div class="wrapper">
+  <div class="page-header section-dark entry-wallpaper">
+    <div class="filter"></div>
+    <div class="content-center">
+      <div class="container">
+        <h2 class="presentation-subtitle text-center" style="margin-top:0">Bitte registrieren Sie sich.</h2>
+      </div>
+    </div>
+    @using ( @Html.BeginForm( "RegisterSubmit", "Home", FormMethod.Post, new { @class = "entry-form" } ) )
+    {
+    <h3>Kennzeichen:</h3>
+    @Html.TextBox( Model.Kennzeichen, Model.Kennzeichen, new { @class = "btn btn-success btn-round", @type = "button" } )
+    <h3>Vorname:</h3>
+    @Html.TextBoxFor(m => m.FirstName, new { @class = "btn btn-success btn-round" } )
+    <h3>Nachname:</h3>
+    @Html.TextBoxFor( m => m.Lastname, new { @class = "btn btn-success btn-round" } )
+    <h3>Email:</h3>
+    @Html.TextBoxFor( m => m.EMail, new { @class = "btn btn-success btn-round", @type="email" } )
+    <input type="submit" class="btn btn-danger entry-submit"/>
+    }
+  </div>
+</div>

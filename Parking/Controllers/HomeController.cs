@@ -1,52 +1,68 @@
 ﻿using Parking.Models;
 using Parking.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Parking.Controllers
 {
-    public class HomeController : Controller
+  public class HomeController : Controller
     {
         private readonly IParkingService _parkingService;
         
         public HomeController()
         {
-            _parkingService = new ParkingService();
         }
-        
-        public ViewResult CarSign()
+
+      public ViewResult Index()
+      {
+        return View( "Index");
+      }
+
+      public ViewResult Entry()
+      {
+      return View( "Entry");
+      }
+
+      public ViewResult EntrySubmit(EntryModel model)
+      {
+        if ( /* Wenn Kennzeichen Dauerparker ist */ false )
         {
-            return View("CarSign");
+          ViewBag.Message = "Herzlich willkommen, Herr Dauerparker ;)";
+          return View( "Index" );
         }
-
-        public ViewResult CarSign(CarSignModel model)
+        else if ( /* Wenn Kennzeichen neu ist */ true )
         {
-            //List<>
-
-            return View("DriveIn");
+          return View( "ChooseParkingStyle", model );
         }
+      }
 
-        public ViewResult DriveIn()
-        {
-            return View("DriveIn");
-        }
+      public ViewResult NewShortTerm(EntryModel model)
+      {
+        ViewBag.Message = "Herzlich Willkommen, neuer Kurzzeitparker";
+        return View( "Index", model );
+      }
 
+      [HttpPost]
+      public ViewResult Register(EntryModel model)
+      {
+        return View( "Register", model );
+      }
 
-        public ActionResult ClickOnShortParking (DriveInModel driveInModel)
-        {
-             //_parkingService.CheckIn();
+      public ViewResult RegisterSubmit (EntryModel model)
+      {
+        ViewBag.Message = "Erfolgreich als Dauerparker angemeldet";
+        return View( "Index" );
+      }
 
-            return View("DriveIn");
-        }
+      public ViewResult Out()
+      {
+      var model = new OutModel();
+        return View( "Out", model );
+      }
 
-        public ActionResult ClickOnLongParking(DriveInModel driveInModel)
-        {
-            //_parkingService.CheckIn();
-
-            return View("DriveIn");
-        }
+      public ViewResult OutSubmit(OutModel model)
+      {
+        ViewBag.Message = "Erfolgreich hinausgefahren, beehren Sie uns bald wieder.";
+        return View( "Index" );
+      }
     }
 }

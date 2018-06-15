@@ -8,6 +8,6 @@ namespace Parking.Services
 {   
     public interface IParkingService
     {
-        void CheckIn(ParkingEntity parkingEntity);
+        void CheckIn(Customer parkingEntity);
     }
 }

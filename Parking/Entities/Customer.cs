@@ -1,21 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Parking.Entities
 {
-    public class ParkingEntity
+  public class Customer
     {
         /// <summary>
-        /// Id.
+        /// ID.
         /// </summary>
         public int Id { get; set; }
 
         /// <summary>
         /// Kennzeichen des Autos.
         /// </summary>
-        public string CarSign { get; set; }
+        public string LicensePlate { get; set; }
 
         /// <summary>
         /// Ankunft.
@@ -33,7 +30,7 @@ namespace Parking.Entities
         public bool IsLongTimeParker { get; set; }
 
         /// <summary>
-        /// Ist der Parkende im Parkhaus.   
+        /// Parkt aktuell im Parkhaus.   
         /// </summary>
         public bool IsInParkhouse { get; set; }
     }

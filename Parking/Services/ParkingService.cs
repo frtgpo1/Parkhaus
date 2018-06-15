@@ -1,77 +1,56 @@
-﻿using Parking.DatabaseConfiguration;
-using Parking.Entities;
+﻿using Parking.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace Parking.Services
-{
-    public class ParkingService : IParkingService
+{ // : IParkingService
+  public class ParkingService
     {
         private const int MaxVehicles = 180;
         private const int MaxLongTimeVehicles = 40;
         private const int MinFreePlacesToAllowShortParkers = 4;
 
-        private List<ParkingEntity> _Parkers = DbMockup.InitDB();
+        private List<Customer> _longtimeParkers = new List<Customer>();
         
         public int NumberOfShortParkers { get; set; } = 0;
 
-        public ParkingEntity DriveIn(ParkingEntity driveInParker)
+        public Customer DriveIn(Customer driveInParker)
         {
-            var isLongtimeparker = IsLongTimeParker(driveInParker.CarSign);
-            if (isLongtimeparker)
+            if (IsLongTimeParker(driveInParker.LicensePlate))
             {
-                driveInParker.IsLongTimeParker = isLongtimeparker;
+                driveInParker.IsLongTimeParker = true;
                 return driveInParker;
             }
-            driveInParker.IsLongTimeParker = isLongtimeparker;
+
             driveInParker.CheckInTime = DateTime.UtcNow;
 
-            var capacity = CapacityAvailable(isLongtimeparker);
 
             return driveInParker;
         }
 
-        private bool IsLongTimeParker(string carSign)
+        
+        public bool IsLongTimeParker(string carSign)
         {
-            return _Parkers.Any(x => x.CarSign == carSign);
+
+            return _longtimeParkers.Where(parker => parker.LicensePlate == carSign).Any();
         }
         
-        public bool CapacityAvailable(bool isInParkHouse)
+        public int checkCapacity()
         {
+            return 0;
+        }
 
-            var parkingEntity = new ParkingEntity();
-
-            var longerInParker = _Parkers.Where(l => l.IsLongTimeParker && l.IsInParkhouse).Count();
-            if (longerInParker <= MaxLongTimeVehicles && parkingEntity.IsLongTimeParker)
-            {
-                _Parkers.Remove(_Parkers.First(parker => parker.Id == parkingEntity.Id));
-                isInParkHouse = true;
-                _Parkers.Add(parkingEntity);
-                return true;
-            }
-            else if(longerInParker > MaxLongTimeVehicles && parkingEntity.IsLongTimeParker)
-            {
-                return false;
-            }
-
-            var shorterParkerIn = _Parkers.Where(s => !s.IsLongTimeParker).Count();
-            var freePlaces = MaxVehicles - MaxLongTimeVehicles - MinFreePlacesToAllowShortParkers;
-            var placesAvailable = freePlaces - shorterParkerIn > 0;
-
-            if (placesAvailable)
-            {
-                _Parkers.Add(parkingEntity);
-                return true;
-            }
-
+        public bool FirstVisite()
+        {
             return false;
         }
 
-        public void CheckIn(ParkingEntity parkingEntity)
+        public bool NoCapacity( bool ShortParker = false)
         {
-            throw new NotImplementedException();
+            // TODO: Datenbak auswertung.
+            return true;
         }
     }
 }

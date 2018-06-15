@@ -1,0 +1,105 @@
+
+
+.content-center {
+    position: absolute;
+    top: 0;
+}
+
+h2.presentation-subtitle.text-center {
+    margin-top: 70px;
+		font-size: 37px;
+}
+
+.page-header.section-dark.index-wallpaper {
+    background-image: url('../../Content/Bilder/Parkhaus.jpg');
+}
+
+.page-header.section-dark.entry-wallpaper {
+    background-image: url('../../Content/Bilder/Parkhaus-Eingang.jpg');
+}
+
+.page-header.section-dark.out-wallpaper {
+    background-image: url('../../Content/Bilder/Parkhaus-Ausgang.jpg');
+}
+
+input.btn.btn-danger, input#Kennzeichen {
+    position: relative;
+    margin-top: 29%;
+		z-index: 2;
+		font-weight: 400;
+}
+
+form.entry-form {
+	margin-top: 10%;
+	width: 15%;
+	min-width: 200px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+
+form.entry-form>* {
+	z-index: 2;
+}
+
+form.entry-form>h3 {
+	color: white;
+}
+
+form.entry-form>input {
+	font-size: 23px;
+}
+
+#Kennzeichen,
+form.entry-form>input:not([type=submit]) {
+	cursor: text;
+}
+
+span.label.label-danger.index-message {
+	z-index: 2;
+	padding:20px;
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 25px;
+	position: absolute;
+	top: 5px;
+	left: 5px;
+}
+
+div.alert.alert-info {
+	z-index: 2;
+	cursor: auto;
+	font-weight: 400;
+	width: 100%;
+
+	text-align: center;
+	margin-top: 5%;
+}
+
+
+input.index-out-button {
+	margin-left: 3%;
+	font-size: 17px;
+}
+
+input.index-entry-button {
+	margin-right: 3%;
+	font-size: 17px;
+}
+
+.container .title-brand {
+	max-width: 2000px;
+}
+
+* {
+	text-shadow: 1px 1px 1px black;
+}
+
+h1 {
+	text-shadow: 1px 1px 1px transparent;
+}
+
+span {
+	font-size: 22px;
+}

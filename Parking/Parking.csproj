@@ -48,9 +48,11 @@
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -149,19 +151,57 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="DatabaseConfiguration\DbConfig.cs" />
-    <Compile Include="DatabaseConfiguration\DbMockup.cs" />
-    <Compile Include="Entities\ParkingEntity.cs" />
+    <Compile Include="Entities\Customer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\CarSignModel.cs" />
-    <Compile Include="Models\DriveInModel.cs" />
+    <Compile Include="Models\OutModel.cs" />
+    <Compile Include="Models\EntryModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IParkingService.cs" />
+    <Compile Include="Services\ParkingContext.cs" />
     <Compile Include="Services\ParkingService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\css\bootstrap.min.css" />
+    <Content Include="assets\css\nucleo-icons.css" />
+    <Content Include="assets\css\paper-kit.css" />
+    <Content Include="assets\css\styles.css" />
+    <Content Include="assets\img\antoine-barres.jpg" />
+    <Content Include="assets\img\apple-icon.png" />
+    <Content Include="assets\img\bruno-abatti.jpg" />
+    <Content Include="assets\img\clouds.png" />
+    <Content Include="assets\img\creative-tim-white-slim2.png" />
+    <Content Include="assets\img\daniel-olahh.jpg" />
+    <Content Include="assets\img\daniel-olahs.jpg" />
+    <Content Include="assets\img\examples\landing-page.JPG" />
+    <Content Include="assets\img\examples\profile-page.JPG" />
+    <Content Include="assets\img\fabio-mangione.jpg" />
+    <Content Include="assets\img\faces\ayo-ogunseinde-2.jpg" />
+    <Content Include="assets\img\faces\clem-onojeghuo-2.jpg" />
+    <Content Include="assets\img\faces\clem-onojeghuo-3.jpg" />
+    <Content Include="assets\img\faces\erik-lucatero-2.jpg" />
+    <Content Include="assets\img\faces\joe-gardner-2.jpg" />
+    <Content Include="assets\img\faces\kaci-baum-2.jpg" />
+    <Content Include="assets\img\favicon.ico" />
+    <Content Include="assets\img\federico-beccari.jpg" />
+    <Content Include="assets\img\fog-low.png" />
+    <Content Include="assets\img\ilya-yakover.jpg" />
+    <Content Include="assets\img\joshua-stannard.jpg" />
+    <Content Include="assets\img\login-image.jpg" />
+    <Content Include="assets\img\new_logo.png" />
+    <Content Include="assets\img\placeholder.jpg" />
+    <Content Include="assets\img\soroush-karimi.jpg" />
+    <Content Include="assets\img\uriel-soberanes.jpg" />
+    <Content Include="assets\js\bootstrap-datetimepicker.min.js" />
+    <Content Include="assets\js\bootstrap-switch.min.js" />
+    <Content Include="assets\js\bootstrap.min.js" />
+    <Content Include="assets\js\jquery-3.2.1.js" />
+    <Content Include="assets\js\jquery-ui-1.12.1.custom.min.js" />
+    <Content Include="assets\js\moment.min.js" />
+    <Content Include="assets\js\nouislider.js" />
+    <Content Include="assets\js\paper-kit.js" />
+    <Content Include="assets\js\popper.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -173,6 +213,55 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="assets\.DS_Store" />
+    <Content Include="assets\css\.DS_Store" />
+    <Content Include="assets\fonts\nucleo-icons.eot" />
+    <Content Include="assets\fonts\nucleo-icons.ttf" />
+    <Content Include="assets\fonts\nucleo-icons.woff" />
+    <Content Include="assets\fonts\nucleo-icons.woff2" />
+    <Content Include="assets\img\.DS_Store" />
+    <Content Include="assets\img\examples\.DS_Store" />
+    <Content Include="assets\img\faces\.DS_Store" />
+    <Content Include="assets\js\.DS_Store" />
+    <Content Include="assets\sass\.DS_Store" />
+    <Content Include="assets\sass\paper-kit.scss" />
+    <Content Include="assets\sass\paper-kit\.DS_Store" />
+    <Content Include="assets\sass\paper-kit\mixins\_buttons.scss" />
+    <Content Include="assets\sass\paper-kit\mixins\_inputs.scss" />
+    <Content Include="assets\sass\paper-kit\mixins\_labels.scss" />
+    <Content Include="assets\sass\paper-kit\mixins\_navbars.scss" />
+    <Content Include="assets\sass\paper-kit\mixins\_popovers.scss" />
+    <Content Include="assets\sass\paper-kit\mixins\_tabs.scss" />
+    <Content Include="assets\sass\paper-kit\mixins\_transparency.scss" />
+    <Content Include="assets\sass\paper-kit\mixins\_vendor-prefixes.scss" />
+    <Content Include="assets\sass\paper-kit\plugins\_datetimepicker.scss" />
+    <Content Include="assets\sass\paper-kit\_alerts.scss" />
+    <Content Include="assets\sass\paper-kit\_bootstrap-switch.scss" />
+    <Content Include="assets\sass\paper-kit\_buttons.scss" />
+    <Content Include="assets\sass\paper-kit\_cards.scss" />
+    <Content Include="assets\sass\paper-kit\_carousel.scss" />
+    <Content Include="assets\sass\paper-kit\_checkbox-radio.scss" />
+    <Content Include="assets\sass\paper-kit\_collapse.scss" />
+    <Content Include="assets\sass\paper-kit\_dropdown.scss" />
+    <Content Include="assets\sass\paper-kit\_examples.scss" />
+    <Content Include="assets\sass\paper-kit\_footers.scss" />
+    <Content Include="assets\sass\paper-kit\_icons.scss" />
+    <Content Include="assets\sass\paper-kit\_images.scss" />
+    <Content Include="assets\sass\paper-kit\_inputs.scss" />
+    <Content Include="assets\sass\paper-kit\_labels.scss" />
+    <Content Include="assets\sass\paper-kit\_misc.scss" />
+    <Content Include="assets\sass\paper-kit\_mixins.scss" />
+    <Content Include="assets\sass\paper-kit\_modal.scss" />
+    <Content Include="assets\sass\paper-kit\_navbars.scss" />
+    <Content Include="assets\sass\paper-kit\_progress-bars.scss" />
+    <Content Include="assets\sass\paper-kit\_responsive.scss" />
+    <Content Include="assets\sass\paper-kit\_sections.scss" />
+    <Content Include="assets\sass\paper-kit\_sliders.scss" />
+    <Content Include="assets\sass\paper-kit\_social-buttons.scss" />
+    <Content Include="assets\sass\paper-kit\_tabs-navs-pagination.scss" />
+    <Content Include="assets\sass\paper-kit\_tooltips-and-popovers.scss" />
+    <Content Include="assets\sass\paper-kit\_typography.scss" />
+    <Content Include="assets\sass\paper-kit\_variables.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -192,10 +281,14 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Home\DriveIn.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\CarSign.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Entry.cshtml" />
+    <Content Include="Views\Home\Out.cshtml" />
+    <Content Include="Views\Home\ChooseParkingStyle.cshtml" />
+    <Content Include="Views\Home\NewShortTerm.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,21 @@
+﻿<div class="wrapper">
+    <div class="page-header section-dark index-wallpaper">
+      @if ( ViewBag.Message != null )
+      {
+        <span class="label label-danger index-message">@ViewBag.Message</span>
+      }
+        <div class="filter"></div>
+        <div class="content-center">
+            <div class="container">
+                <div class="title-brand">
+                    <h1 class="presentation-title">Krasses Parkhaus</h1>
+                </div>
+                <h2 class="presentation-subtitle text-center">Möchten Sie hineinfahren oder herausfahren? </h2>
+            </div>
+        </div>
+        <div class="moving-clouds" style="background-image: url('../../assets/img/clouds.png'); ">
+        </div>
+      <input type="button" class="btn btn-danger index-entry-button" value="Hineinfahren" onclick="location.href='@Url.Action("Entry", "Home")'" />
+      <input type="button" class="btn btn-danger index-out-button" value="Hinausfahren" onclick="location.href='@Url.Action("Out", "Home")'" />
+    </div>
+</div>
