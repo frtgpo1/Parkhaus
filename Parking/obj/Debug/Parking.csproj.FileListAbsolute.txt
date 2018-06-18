@@ -363,9 +363,13 @@ C:\Users\OLE\Desktop\parkplatz-projekt\Parking\bin\Microsoft.AI.Web.xml
 C:\Users\OLE\Desktop\parkplatz-projekt\Parking\obj\Debug\Parking.csprojResolveAssemblyReference.cache
 C:\Users\OLE\Desktop\parkplatz-projekt\Parking\obj\Debug\Parking.dll
 C:\Users\OLE\Desktop\parkplatz-projekt\Parking\obj\Debug\Parking.pdb
-C:\Users\OLE\Desktop\parkplatz-projekt\Parking\obj\Debug\Parking.csproj.CoreCompileInputs.cache
 C:\Users\OLE\Desktop\parkplatz-projekt\Parking\obj\Debug\Parking.Migrations.Erstelle_Customer_Entity.resources
 C:\Users\OLE\Desktop\parkplatz-projekt\Parking\obj\Debug\Parking.csproj.GenerateResource.Cache
 C:\Users\OLE\Desktop\parkplatz-projekt\Parking\obj\Debug\Parking.Migrations.Test.resources
 C:\Users\OLE\Desktop\parkplatz-projekt\Parking\obj\Debug\Parking.Migrations.TestEntfernt.resources
 C:\Users\OLE\Desktop\parkplatz-projekt\Parking\obj\Debug\Parking.Migrations.EntferneParkzeiten.resources
+C:\Users\OLE\Desktop\parkplatz-projekt\Parking\obj\Debug\Parking.Migrations.EntferneIdUndErsetzeSieMitCarSign.resources
+C:\Users\OLE\Desktop\parkplatz-projekt\Parking\obj\Debug\Parking.Migrations.BenenneCarSignInLicensePlateUm.resources
+C:\Users\OLE\Desktop\parkplatz-projekt\Parking\obj\Debug\Parking.Migrations.DeklariereLicensePlateAlsPrimaryKey.resources
+C:\Users\OLE\Desktop\parkplatz-projekt\Parking\obj\Debug\Parking.Migrations.MacheAllesRichtig.resources
+C:\Users\OLE\Desktop\parkplatz-projekt\Parking\obj\Debug\Parking.Migrations.Dings.resources

@@ -171,6 +171,26 @@
     <Compile Include="Migrations\201806151439488_EntferneParkzeiten.Designer.cs">
       <DependentUpon>201806151439488_EntferneParkzeiten.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806181343147_EntferneIdUndErsetzeSieMitCarSign.cs" />
+    <Compile Include="Migrations\201806181343147_EntferneIdUndErsetzeSieMitCarSign.Designer.cs">
+      <DependentUpon>201806181343147_EntferneIdUndErsetzeSieMitCarSign.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806181352304_BenenneCarSignInLicensePlateUm.cs" />
+    <Compile Include="Migrations\201806181352304_BenenneCarSignInLicensePlateUm.Designer.cs">
+      <DependentUpon>201806181352304_BenenneCarSignInLicensePlateUm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806181402189_DeklariereLicensePlateAlsPrimaryKey.cs" />
+    <Compile Include="Migrations\201806181402189_DeklariereLicensePlateAlsPrimaryKey.Designer.cs">
+      <DependentUpon>201806181402189_DeklariereLicensePlateAlsPrimaryKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806181406172_MacheAllesRichtig.cs" />
+    <Compile Include="Migrations\201806181406172_MacheAllesRichtig.Designer.cs">
+      <DependentUpon>201806181406172_MacheAllesRichtig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806181452194_Dings.cs" />
+    <Compile Include="Migrations\201806181452194_Dings.Designer.cs">
+      <DependentUpon>201806181452194_Dings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\OutModel.cs" />
     <Compile Include="Models\EntryModel.cs" />
@@ -335,6 +355,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806151439488_EntferneParkzeiten.resx">
       <DependentUpon>201806151439488_EntferneParkzeiten.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806181343147_EntferneIdUndErsetzeSieMitCarSign.resx">
+      <DependentUpon>201806181343147_EntferneIdUndErsetzeSieMitCarSign.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806181352304_BenenneCarSignInLicensePlateUm.resx">
+      <DependentUpon>201806181352304_BenenneCarSignInLicensePlateUm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806181402189_DeklariereLicensePlateAlsPrimaryKey.resx">
+      <DependentUpon>201806181402189_DeklariereLicensePlateAlsPrimaryKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806181406172_MacheAllesRichtig.resx">
+      <DependentUpon>201806181406172_MacheAllesRichtig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806181452194_Dings.resx">
+      <DependentUpon>201806181452194_Dings.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

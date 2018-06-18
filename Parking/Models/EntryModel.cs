@@ -2,7 +2,7 @@
 {
   public class EntryModel
   {
-    public string Kennzeichen { get; set; }
+    public string LicensePlate { get; set; }
 
     public string FirstName { get; set; }
 

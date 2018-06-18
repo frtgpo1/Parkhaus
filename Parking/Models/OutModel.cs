@@ -7,6 +7,6 @@ namespace Parking.Models
 {
   public class OutModel
   {
-    public string Kennzeichen { get; set; }
+    public string LicensePlate { get; set; }
   }
 }

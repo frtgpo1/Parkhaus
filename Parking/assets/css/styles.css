@@ -103,3 +103,7 @@ h1 {
 span {
 	font-size: 22px;
 }
+
+.btn:not(.uppercase) {
+	text-transform: none;
+}
