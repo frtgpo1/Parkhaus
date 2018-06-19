@@ -373,3 +373,4 @@ C:\Users\OLE\Desktop\parkplatz-projekt\Parking\obj\Debug\Parking.Migrations.Bene
 C:\Users\OLE\Desktop\parkplatz-projekt\Parking\obj\Debug\Parking.Migrations.DeklariereLicensePlateAlsPrimaryKey.resources
 C:\Users\OLE\Desktop\parkplatz-projekt\Parking\obj\Debug\Parking.Migrations.MacheAllesRichtig.resources
 C:\Users\OLE\Desktop\parkplatz-projekt\Parking\obj\Debug\Parking.Migrations.Dings.resources
+C:\Users\OLE\Desktop\parkplatz-projekt\Parking\obj\Debug\Parking.Migrations.FügeVisitHinzu.resources

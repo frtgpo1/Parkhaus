@@ -8,7 +8,9 @@ namespace Parking.Controllers
 {
   public class HomeController : Controller
 	{
-    private const int maxCars = 100;
+    private const int maxCars = 180;
+    private const int maxShortTermCars = 140;
+    private const int maxLongTermCars = 40;
 
     public HomeController()
     {
@@ -17,7 +19,7 @@ namespace Parking.Controllers
 
 		public ViewResult Index()
 		{
-      ViewBag.NumberOfCarsInCarPark = AvailableParkingLots();
+      ViewBag.NumberOfCarsInCarPark = AvailableParkingLotsOverall();
       ViewBag.Message = TempData["notification"]?.ToString();
 			return View("Index");
 		}
@@ -38,14 +40,23 @@ namespace Parking.Controllers
         }
         else
         {
-          ChangeIsInParkStatus( model.LicensePlate, true );
-          TempData[ "notification" ] = "Herzlich Willkommen zurück im Parkhaus, Herr Dauerparker!";
-          return RedirectToAction( "Index" );
+          // Kann nur ein Dauerparker sein
+          if ( CalculateAvailableLongTermParkingSpots() > 0 || CalculateAvailableShortTermParkingSpots() > 4 )
+          {
+            ChangeIsInCarParkStatus( model.LicensePlate, true );
+            TempData[ "notification" ] = "Herzlich Willkommen zurück im Parkhaus, " + model.FirstName + " " + model.Lastname + "!";
+            return RedirectToAction( "Index" );
+          }
+          else
+          {
+            TempData[ "notification" ] = "Das Parkhaus ist leider voll, " + model.FirstName + " " + model.Lastname + "!";
+            return RedirectToAction( "Index" );
+          }
         }
       }
       else
       {
-        if ( AvailableParkingLots() < 1 )
+        if ( CalculateAvailableShortTermParkingSpots() < 4 )
         {
           TempData["notification"] = "Das Parkhaus ist voll, tut uns sehr leid!";
           return RedirectToAction( "Index" );
@@ -61,7 +72,7 @@ namespace Parking.Controllers
     public ActionResult NewShortTerm(EntryModel model)
 		{
       RegisterNewShortTermParker( model.LicensePlate );
-      ChangeIsInParkStatus( model.LicensePlate, true );
+      ChangeIsInCarParkStatus( model.LicensePlate, true );
 			TempData["notification"] = "Herzlich Willkommen, neuer Kurzzeitparker";
 			return RedirectToAction("Index");
 		}
@@ -75,7 +86,7 @@ namespace Parking.Controllers
 		public ActionResult RegisterSubmit(EntryModel model)
 		{
       RegisterNewLongTimeParker( model );
-      ChangeIsInParkStatus( model.LicensePlate, true );
+      ChangeIsInCarParkStatus( model.LicensePlate, true );
 			TempData["notification"] = "Herzlich Willkommen, Sie haben sich erfolgreich als Dauerparker angemeldet.";
       return RedirectToAction("Index");
 		}
@@ -160,7 +171,7 @@ namespace Parking.Controllers
       }
     }
 
-    private int GetNumberOfCarsInCarPark()
+    private int CalculateCarsInCarParkOverall()
     {
       using (var context = new ParkingContext())
       {
@@ -168,13 +179,45 @@ namespace Parking.Controllers
       }
     }
 
-    private int AvailableParkingLots()
-
+    private int CalculateCarsOfLongTermParkersInCarPark()
     {
-      return maxCars - GetNumberOfCarsInCarPark();
+      using (var context = new ParkingContext())
+      {
+        return context.Customers.Where(c => c.IsInCarPark == true && c.IsLongTimeParker == true).Count();
+      }
     }
 
-    private void ChangeIsInParkStatus(string licensePlate, bool isCarInCarPark)
+    private int CalculateCarsOfShortTermParkersInCarPark()
+    {
+      using (var context = new ParkingContext())
+      {
+        return context.Customers.Where(c => c.IsInCarPark == true && c.IsLongTimeParker == false).Count();
+      }
+    }
+
+    private int CalculateAvailableLongTermParkingSpots()
+    {
+      using (var context = new ParkingContext())
+      {
+        return maxLongTermCars - CalculateCarsOfLongTermParkersInCarPark();
+      }
+    }
+
+    private int CalculateAvailableShortTermParkingSpots()
+    {
+      using (var context = new ParkingContext())
+      {
+        return maxLongTermCars - CalculateCarsOfShortTermParkersInCarPark();
+      }
+    }
+
+    private int AvailableParkingLotsOverall()
+
+    {
+      return maxCars - CalculateCarsInCarParkOverall();
+    }
+
+    private void ChangeIsInCarParkStatus(string licensePlate, bool isCarInCarPark)
     {
       using (var context = new ParkingContext())
       {
@@ -194,7 +237,7 @@ namespace Parking.Controllers
         var customer = context.Customers.Where( c => c.LicensePlate == licensePlate ).Single();
         if ( customer.IsLongTimeParker )
         {
-          ChangeIsInParkStatus( licensePlate, false );
+          ChangeIsInCarParkStatus( licensePlate, false );
         }
         else
         {
