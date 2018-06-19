@@ -22,11 +22,24 @@ h2.presentation-subtitle.text-center {
     background-image: url('../../Content/Bilder/Parkhaus-Ausgang.jpg');
 }
 
-input.btn.btn-danger, input#Kennzeichen {
+input.btn.btn-danger:not(.short-term-button):not(.long-term-button), input#Kennzeichen {
     position: relative;
     margin-top: 29%;
 		z-index: 2;
-		font-weight: 400;
+}
+
+input.btn.btn-danger {
+	font-weight: 400;
+}
+
+form.choose-parking-style-form {
+	margin-top: 20%;
+	width: 15%;
+	min-width: 200px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: space-around;
 }
 
 form.entry-form {
@@ -39,7 +52,7 @@ form.entry-form {
 	justify-content: space-around;
 }
 
-form.entry-form>* {
+form.entry-form>*, form.choose-parking-style-form>* {
 	z-index: 2;
 }
 
@@ -47,7 +60,7 @@ form.entry-form>h3 {
 	color: white;
 }
 
-form.entry-form>input {
+form.entry-form>input, form.choose-parking-style-form>input {
 	font-size: 23px;
 }
 
@@ -106,4 +119,11 @@ span {
 
 .btn:not(.uppercase) {
 	text-transform: none;
+}
+
+.free-short-term-lots {
+	color: white;
+	margin-top: 29%;
+	margin-bottom: 5%;	
+	text-align: center;
 }

@@ -11,11 +11,19 @@
         <h2 class="presentation-subtitle text-center">Bitte wählen Sie, ob Sie als Dauerparker <br /> oder Kurzzeitparker hier sind.</h2>
       </div>
     </div>
-    @using ( @Html.BeginForm( "Index", "Home", FormMethod.Post, new { @class = "entry-form" } ) )
+    @using ( @Html.BeginForm( "Index", "Home", FormMethod.Post, new { @class = "choose-parking-style-form" } ) )
     {
-      <input type="submit" class="btn btn-danger entry-submit" value="Dauerparker" formaction=@Url.Action("Register") />
-      <input type="submit" class="btn btn-danger entry-submit" value="Kurzzeitparker" formaction=@Url.Action("NewShortTerm") />
-      @Html.HiddenFor( m => m.LicensePlate)
+    <input type="submit" class="btn btn-danger long-term-button" value="Dauerparker" formaction=@Url.Action("Register") />
+      if ( ViewBag.FreeShortTermParkingLots > 4 )
+      {
+        <h4 class="free-short-term-lots">@ViewBag.FreeShortTermParkingLots freie Kurzzeitparkplätze</h4>
+      }
+      else
+      {
+        <h4 class="free-short-term-lots">Belegt</h4>
+      }
+      <input type="submit" class="btn btn-danger short-term-button" value="Kurzzeitparker" formaction=@Url.Action("NewShortTerm") />
+      @Html.HiddenFor( m => m.LicensePlate )
     }
   </div>
 </div>

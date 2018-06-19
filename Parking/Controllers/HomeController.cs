@@ -3,6 +3,7 @@ using Parking.Models;
 using Parking.Services;
 using System.Web.Mvc;
 using System.Linq;
+using System;
 
 namespace Parking.Controllers
 {
@@ -31,39 +32,57 @@ namespace Parking.Controllers
 
 		public ActionResult EntrySubmit(EntryModel model)
 		{
-      if ( IsCarKnown( model.LicensePlate ) )
+      if ( IsCarInPark(model.LicensePlate ) )
       {
-        if ( IsCarInPark(model.LicensePlate ) )
-        {
-          TempData[ "notification" ] = "Digger, du BIST bereits im Autohaus.";
-          return RedirectToAction( "Index" );
-        }
-        else
-        {
-          // Kann nur ein Dauerparker sein
-          if ( CalculateAvailableLongTermParkingSpots() > 0 || CalculateAvailableShortTermParkingSpots() > 4 )
-          {
-            ChangeIsInCarParkStatus( model.LicensePlate, true );
-            TempData[ "notification" ] = "Herzlich Willkommen zurück im Parkhaus, " + model.FirstName + " " + model.Lastname + "!";
-            return RedirectToAction( "Index" );
-          }
-          else
-          {
-            TempData[ "notification" ] = "Das Parkhaus ist leider voll, " + model.FirstName + " " + model.Lastname + "!";
-            return RedirectToAction( "Index" );
-          }
-        }
+        TempData[ "notification" ] = "Digger, du BIST bereits im Autohaus.";
+        return RedirectToAction( "Index" );
       }
       else
       {
-        if ( CalculateAvailableShortTermParkingSpots() < 4 )
+        if ( IsCarKnown( model.LicensePlate ) )
         {
-          TempData["notification"] = "Das Parkhaus ist voll, tut uns sehr leid!";
-          return RedirectToAction( "Index" );
+          if ( IsLongTermParker(model.LicensePlate) )
+          {
+            if ( CalculateAvailableLongTermParkingLots() > 0 || CalculateAvailableShortTermParkingLots() > 4 )
+            {
+              ChangeIsInCarParkStatus( model.LicensePlate, true );
+              RegisterNewVisitEntry( model.LicensePlate );
+              var customer = GetCustomer( model.LicensePlate );
+              TempData[ "notification" ] = "Herzlich Willkommen zurück im Parkhaus, " + customer.FirstName + " " + customer.Lastname + "!";
+              return RedirectToAction( "Index" );
+            }
+            else
+            {
+              TempData[ "notification" ] = "Das Parkhaus ist leider voll, " + model.FirstName + " " + model.Lastname + "!";
+              return RedirectToAction( "Index" );
+            }
+          }
+          else
+          {
+            if ( CalculateAvailableLongTermParkingLots() > 0 || CalculateAvailableShortTermParkingLots() < 4 )
+            {
+              ViewBag.FreeShortTermParkingLots = CalculateAvailableShortTermParkingLots();
+				      return View("ChooseParkingStyle", model);
+            }
+            else
+            {
+              TempData[ "notification" ] = "Das Parkhaus ist voll, tut uns sehr leid!";
+              return RedirectToAction( "Index" );
+            }
+          }
         }
         else
         {
-				  return View("ChooseParkingStyle", model);
+          if ( CalculateAvailableLongTermParkingLots() > 0 || CalculateAvailableShortTermParkingLots() < 4 )
+          {
+            ViewBag.FreeShortTermParkingLots = CalculateAvailableShortTermParkingLots();
+				    return View("ChooseParkingStyle", model);
+          }
+          else
+          {
+            TempData[ "notification" ] = "Das Parkhaus ist voll, tut uns sehr leid!";
+            return RedirectToAction( "Index" );
+          }
         }
       }
 		}
@@ -71,9 +90,20 @@ namespace Parking.Controllers
     [HttpPost]
     public ActionResult NewShortTerm(EntryModel model)
 		{
-      RegisterNewShortTermParker( model.LicensePlate );
+      if ( !(CalculateAvailableShortTermParkingLots() > 4) )
+      {
+        TempData[ "notification" ] = "Der Parkhaus ist belegt, versuchen Sie es später noch einmal.";
+        return RedirectToAction( "Index" );
+      }
+
+      if ( !IsCarKnown(model.LicensePlate) )
+      {
+        RegisterNewShortTermParker( model.LicensePlate );
+      }
+
+      RegisterNewVisitEntry( model.LicensePlate );
       ChangeIsInCarParkStatus( model.LicensePlate, true );
-			TempData["notification"] = "Herzlich Willkommen, neuer Kurzzeitparker";
+			TempData["notification"] = "Herzlich Willkommen, lieber Kurzzeitparker";
 			return RedirectToAction("Index");
 		}
 
@@ -86,6 +116,7 @@ namespace Parking.Controllers
 		public ActionResult RegisterSubmit(EntryModel model)
 		{
       RegisterNewLongTimeParker( model );
+      RegisterNewVisitEntry(model.LicensePlate);
       ChangeIsInCarParkStatus( model.LicensePlate, true );
 			TempData["notification"] = "Herzlich Willkommen, Sie haben sich erfolgreich als Dauerparker angemeldet.";
       return RedirectToAction("Index");
@@ -100,9 +131,22 @@ namespace Parking.Controllers
     [HttpPost]
 		public ActionResult OutSubmit(OutModel model)
 		{
-      if ( IsCarInPark(model.LicensePlate) )
+      if ( !IsLongTermParker(model.LicensePlate) )
       {
-        SignOut( model.LicensePlate );
+        return View( "PayForShortTerm", model );  
+      }
+      else
+      {
+        return View( "PayForLongTerm", model );
+      }
+		}
+
+    public ActionResult DriveOut(OutModel model)
+    {
+    if ( IsCarInPark(model.LicensePlate) )
+      {
+        SignOutOfCarPark( model.LicensePlate );
+        RegisterNewVisitOut( model.LicensePlate );
         TempData[ "notification" ] = "Erfolgreich hinausgefahren, beehren Sie uns bald wieder.";
         return RedirectToAction( "Index" );
       }
@@ -111,7 +155,7 @@ namespace Parking.Controllers
         TempData[ "notification" ] = "Du kannst nicht noch mehr draußen sein!";
         return RedirectToAction( "Index" );
       }
-		}
+    }
 
     private void RegisterNewLongTimeParker( EntryModel model )
     {
@@ -151,7 +195,7 @@ namespace Parking.Controllers
     {
       using(var context = new ParkingContext())
       {
-        return context.Customers.Where(c => c.LicensePlate == licensePlate).Select( c => c.IsInCarPark ).Single();
+        return context.Customers.Where(c => c.LicensePlate == licensePlate).Any( c => c.IsInCarPark );
       }  
     }
 
@@ -163,7 +207,7 @@ namespace Parking.Controllers
       }
     }
 
-    private bool IsLongTimeParker( string carSign )
+    private bool IsLongTermParker( string carSign )
     {
       using ( var context = new ParkingContext() )
       {
@@ -195,7 +239,7 @@ namespace Parking.Controllers
       }
     }
 
-    private int CalculateAvailableLongTermParkingSpots()
+    private int CalculateAvailableLongTermParkingLots()
     {
       using (var context = new ParkingContext())
       {
@@ -203,11 +247,11 @@ namespace Parking.Controllers
       }
     }
 
-    private int CalculateAvailableShortTermParkingSpots()
+    private int CalculateAvailableShortTermParkingLots()
     {
       using (var context = new ParkingContext())
       {
-        return maxLongTermCars - CalculateCarsOfShortTermParkersInCarPark();
+    return maxShortTermCars - CalculateCarsOfShortTermParkersInCarPark();
       }
     }
 
@@ -230,21 +274,70 @@ namespace Parking.Controllers
       }
     }
 
-    private void SignOut(string licensePlate)
+    private void SignOutOfCarPark(string licensePlate)
     {
       using (var context = new ParkingContext())
       {
-        var customer = context.Customers.Where( c => c.LicensePlate == licensePlate ).Single();
-        if ( customer.IsLongTimeParker )
+        try
         {
+          var customer = context.Customers.Where( c => c.LicensePlate == licensePlate ).Single();
           ChangeIsInCarParkStatus( licensePlate, false );
+          context.SaveChanges();
         }
-        else
+        catch ( Exception ex )
         {
-          context.Customers.Remove(customer);
+          TempData[ "notification" ] = ex.Message;
+          RedirectToAction( "Index" );  
         }
-        context.SaveChanges();
       }
     }
-	}
+
+    private void RegisterNewVisitEntry(string licensePlate)
+    {
+      try
+      {
+        using (var context = new ParkingContext())
+        {
+          context.Visits.Add( new Visit()
+          {
+            ArrivalTime = DateTime.Now,
+            DepartureTime = null,
+            Customer = context.Customers.Where( c => c.LicensePlate == licensePlate ).Single()
+          });
+          context.SaveChanges();
+        }
+      }
+      catch ( Exception ex)
+      {
+        TempData[ "notification" ] = ex.Message;
+        RedirectToAction( "Index" );
+      }
+    }
+
+    private void RegisterNewVisitOut(string licensePlate)
+    {
+      using (var context = new ParkingContext())
+      {
+        try
+        {
+          var visit = context.Visits.Where( v => v.Customer.LicensePlate == licensePlate && v.DepartureTime == null ).Single();
+          visit.DepartureTime = DateTime.Now;
+          context.SaveChanges();
+        }
+        catch ( Exception ex )
+        {
+          TempData[ "notification" ] = ex.Message;
+          RedirectToAction( "Index" );
+        }
+      }
+    }
+
+    private Customer GetCustomer( string licensePlate )
+    {
+      using(var context = new ParkingContext())
+      {
+        return context.Customers.Where( c => c.LicensePlate == licensePlate ).Single();
+      }
+    }
+  }
 }

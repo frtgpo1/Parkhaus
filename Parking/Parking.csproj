@@ -196,6 +196,14 @@
     <Compile Include="Migrations\201806190836107_FügeVisitHinzu.Designer.cs">
       <DependentUpon>201806190836107_FügeVisitHinzu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806190848421_VerknüpfeVisitsUndCustomerTabellen.cs" />
+    <Compile Include="Migrations\201806190848421_VerknüpfeVisitsUndCustomerTabellen.Designer.cs">
+      <DependentUpon>201806190848421_VerknüpfeVisitsUndCustomerTabellen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806190919304_MacheSachen.cs" />
+    <Compile Include="Migrations\201806190919304_MacheSachen.Designer.cs">
+      <DependentUpon>201806190919304_MacheSachen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\OutModel.cs" />
     <Compile Include="Models\EntryModel.cs" />
@@ -331,6 +339,8 @@
     <Content Include="Views\Home\ChooseParkingStyle.cshtml" />
     <Content Include="Views\Home\NewShortTerm.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Home\PayForShortTerm.cshtml" />
+    <Content Include="Views\Home\PayForLongTerm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -378,6 +388,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806190836107_FügeVisitHinzu.resx">
       <DependentUpon>201806190836107_FügeVisitHinzu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806190848421_VerknüpfeVisitsUndCustomerTabellen.resx">
+      <DependentUpon>201806190848421_VerknüpfeVisitsUndCustomerTabellen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806190919304_MacheSachen.resx">
+      <DependentUpon>201806190919304_MacheSachen.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

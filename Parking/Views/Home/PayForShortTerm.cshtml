@@ -1,0 +1,20 @@
+﻿@model Parking.Models.OutModel
+
+<div class="wrapper">
+  <div class="page-header section-dark out-wallpaper">
+    <div class="filter"></div>
+    <div class="content-center">
+      <div class="container">
+        <div class="title-brand">
+          <h1 class="presentation-title">Hinausfahren</h1>
+        </div>
+        <h2 class="presentation-subtitle text-center">Bitte bezahlen Sie XX Geld für das Kurzzeitparken.</h2>
+      </div>
+    </div>
+    @using ( @Html.BeginForm( "DriveOut", "Home", FormMethod.Post, new { @class = "entry-form" } ) )
+    {
+      @Html.HiddenFor( m => m.LicensePlate )
+      <input type="submit" class="btn btn-danger entry-submit" value="Bezahlen" />
+    }
+  </div>
+</div>

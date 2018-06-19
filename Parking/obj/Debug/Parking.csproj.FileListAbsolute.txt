@@ -374,3 +374,5 @@ C:\Users\OLE\Desktop\parkplatz-projekt\Parking\obj\Debug\Parking.Migrations.Dekl
 C:\Users\OLE\Desktop\parkplatz-projekt\Parking\obj\Debug\Parking.Migrations.MacheAllesRichtig.resources
 C:\Users\OLE\Desktop\parkplatz-projekt\Parking\obj\Debug\Parking.Migrations.Dings.resources
 C:\Users\OLE\Desktop\parkplatz-projekt\Parking\obj\Debug\Parking.Migrations.FügeVisitHinzu.resources
+C:\Users\OLE\Desktop\parkplatz-projekt\Parking\obj\Debug\Parking.Migrations.VerknüpfeVisitsUndCustomerTabellen.resources
+C:\Users\OLE\Desktop\parkplatz-projekt\Parking\obj\Debug\Parking.Migrations.MacheSachen.resources
