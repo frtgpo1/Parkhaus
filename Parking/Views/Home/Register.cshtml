@@ -13,7 +13,7 @@
     <h3>Kennzeichen:</h3>
     @Html.TextBox( Model.LicensePlate, Model.LicensePlate, new { @class = "btn btn-success btn-round uppercase", @type = "button" } )
     <h3>Vorname:</h3>
-    @Html.TextBoxFor(m => m.FirstName, new { @class = "btn btn-success btn-round" } )
+    @Html.TextBoxFor(m => m.FirstName, new { @class = "btn btn-success btn-round", @autofocus = "true" } )
     <h3>Nachname:</h3>
     @Html.TextBoxFor( m => m.Lastname, new { @class = "btn btn-success btn-round" } )
     <h3>Email:</h3>

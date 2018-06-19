@@ -13,11 +13,6 @@ namespace Parking.Controllers
     private const int maxShortTermCars = 140;
     private const int maxLongTermCars = 40;
 
-    public HomeController()
-    {
-      
-    }
-
 		public ViewResult Index()
 		{
       ViewBag.NumberOfCarsInCarPark = AvailableParkingLotsOverall();
@@ -131,14 +126,28 @@ namespace Parking.Controllers
     [HttpPost]
 		public ActionResult OutSubmit(OutModel model)
 		{
-      if ( !IsLongTermParker(model.LicensePlate) )
+      if ( IsCarKnown(model.LicensePlate) && IsCarInPark(model.LicensePlate) )
       {
-        return View( "PayForShortTerm", model );  
+        if ( !IsLongTermParker(model.LicensePlate) )
+        {
+          return View( "PayForShortTerm", model );  
+        }
+        else
+        {
+          return View( "PayForLongTerm", model );
+        }
+      }
+      else if ( IsCarKnown(model.LicensePlate) && !IsCarInPark(model.LicensePlate) )
+      {
+        TempData["notification"] = "Du kannst nich noch mehr draußen sein!";
+			  return RedirectToAction("Index");
       }
       else
       {
-        return View( "PayForLongTerm", model );
+        TempData["notification"] = "Entschuldigung, kennen wir Sie?";
+			  return RedirectToAction("Index");
       }
+      
 		}
 
     public ActionResult DriveOut(OutModel model)
@@ -207,11 +216,11 @@ namespace Parking.Controllers
       }
     }
 
-    private bool IsLongTermParker( string carSign )
+    private bool IsLongTermParker( string licensePlate )
     {
       using ( var context = new ParkingContext() )
       {
-        return context.Customers.Find(carSign).IsLongTimeParker;
+        return context.Customers.Find(licensePlate).IsLongTimeParker;
       }
     }
 
