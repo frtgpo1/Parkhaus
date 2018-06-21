@@ -13,8 +13,8 @@
     </div>
     @using ( @Html.BeginForm( "OutSubmit", "Home", FormMethod.Post, new { @class = "entry-form" } ) )
     {
-    @Html.TextBoxFor( m => m.LicensePlate, new { @class = "btn btn-success btn-round uppercase", @autofocus = "true" } )
-    <input type="submit" class="btn btn-danger entry-submit" value="Abschicken" />
+    @Html.TextBoxFor( m => m.LicensePlate, new { @class = "btn btn-success btn-round uppercase", @autofocus = "true", @autocomplete = "off" } )
+      <input type="submit" class="btn btn-danger entry-submit" value="Abschicken" />
     }
   </div>
 </div>

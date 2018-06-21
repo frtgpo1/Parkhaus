@@ -11,7 +11,7 @@
         <h2 class="presentation-subtitle text-center">Bitte wählen Sie, ob Sie als Dauerparker <br /> oder Kurzzeitparker hier sind.</h2>
       </div>
     </div>
-    @using ( @Html.BeginForm( "Index", "Home", FormMethod.Post, new { @class = "choose-parking-style-form" } ) )
+    @using ( @Html.BeginForm( "Index", "Home", FormMethod.Post, new { @class = "choose-parking-style-form", @autocomplete = "off" } ) )
     {
     <input type="submit" class="btn btn-danger long-term-button" value="Dauerparker" formaction=@Url.Action("Register") />
       if ( ViewBag.FreeShortTermParkingLots > 4 )

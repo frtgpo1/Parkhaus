@@ -11,7 +11,7 @@
         <h2 class="presentation-subtitle text-center">Bitte geben Sie Ihr Kennzeichen ein.</h2>
       </div>
     </div>
-    @using ( @Html.BeginForm( "EntrySubmit", "Home", FormMethod.Post, new { @class = "entry-form" } ) )
+    @using ( @Html.BeginForm( "EntrySubmit", "Home", FormMethod.Post, new { @class = "entry-form", @autocomplete = "off" } ) )
     {
       @Html.TextBoxFor(m => m.LicensePlate, new { @class = "btn btn-success btn-round uppercase", @autofocus = "true" } )
       <input type="submit" class="btn btn-danger entry-submit" value="Abschicken" />

@@ -8,7 +8,7 @@
         <h2 class="presentation-subtitle text-center" style="margin-top:0">Bitte registrieren Sie sich.</h2>
       </div>
     </div>
-    @using ( @Html.BeginForm( "RegisterSubmit", "Home", FormMethod.Post, new { @class = "entry-form" } ) )
+    @using ( @Html.BeginForm( "RegisterSubmit", "Home", FormMethod.Post, new { @class = "entry-form", @autocomplete = "off" } ) )
     {
     <h3>Kennzeichen:</h3>
     @Html.TextBox( Model.LicensePlate, Model.LicensePlate, new { @class = "btn btn-success btn-round uppercase", @type = "button" } )
